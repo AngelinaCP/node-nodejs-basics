@@ -6,16 +6,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const read = async () => {
-    let srcDir = __dirname + '/files'
+    let fileToRead = __dirname + '/files/fileToRead.txt'
 
-    if (!fs.existsSync(srcDir)) {
+    if (!fs.existsSync(fileToRead)) {
         throw new Error('FS operation failed')
     }
-    
-    let files = fs.readdirSync(srcDir)
-    files.forEach(file => {
-        console.log(file);
+
+    fs.readFile(fileToRead, 'utf-8', (err, data) => {
+        if (err) {
+            throw err;
+        }
+        console.log(data);
     })
+
 };
 
 read();
